@@ -1,32 +1,17 @@
-#!/usr/bin/env python
-# pylint: disable=unused-argument
-# This program is dedicated to the public domain under the CC0 license.
-
-"""
-Simple Bot to reply to Telegram messages.
-
-First, a few handler functions are defined. Then, those functions are passed to
-the Application and registered at their respective places.
-Then, the bot is started and runs until we press Ctrl-C on the command line.
-
-Usage:
-Basic Echobot example, repeats messages.
-Press Ctrl-C on the command line or send a signal to the process to stop the
-bot.
-"""
-
 import logging
 
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
 import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+import os
 from dotenv import load_dotenv
-#Code of your application, which uses environment variables (e.g. from `os.environ` or
-# `os.getenv`) as if they came from the actual environment.
-openai.api_type = "open_ai"
-openai.base_url = ''
-openai.api_key = load_dotenv()
+# TODO: The 'openai.base_url' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(base_url='')'
+# openai.base_url = ''
+load_dotenv()
 
 
 # Enable logging
@@ -75,12 +60,10 @@ async def bot_reply(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
         messages.append({'role': 'user', 'content': user_input})
 
-        response = openai.ChatCompletion.create(
-            model = 'gpt-4',
-            messages = messages,
-            tempreture = 0,
-            max_tokens = -1
-        )
+        response = client.chat.completions.create(model = 'gpt-4',
+        messages = messages,
+        tempreture = 0,
+        max_tokens = -1)
 
         messages.append({'role':'assistent','content':response.choices[0].message.content})
         llm_reply = response.choices[0].message.content
