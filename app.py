@@ -63,7 +63,7 @@ async def bot_reply(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         response = client.chat.completions.create(model = 'gpt-4',
         messages = messages,
         temperature = 0,
-        max_tokens = 50)
+        max_tokens = 50 )
 
         messages.append({'role':'assistant','content':response.choices[0].message.content})
         llm_reply = response.choices[0].message.content
