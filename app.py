@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 # openai.base_url = ''
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
-#client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 
 # Enable logging
@@ -62,10 +62,10 @@ async def bot_reply(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
         response = client.chat.completions.create(model = 'gpt-4',
         messages = messages,
-        tempreture = 0,
-        max_tokens = -1)
+        temperature = 0,
+        max_tokens = 50)
 
-        messages.append({'role':'assistent','content':response.choices[0].message.content})
+        messages.append({'role':'assistant','content':response.choices[0].message.content})
         llm_reply = response.choices[0].message.content
 
     else:
