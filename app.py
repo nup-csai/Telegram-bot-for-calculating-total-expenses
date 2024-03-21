@@ -5,13 +5,13 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 
 import openai
 from openai import OpenAI
-
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 import os
 from dotenv import load_dotenv
 # TODO: The 'openai.base_url' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(base_url='')'
 # openai.base_url = ''
 load_dotenv()
+openai.api_key = os.getenv('OPENAI_API_KEY')
+##client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 
 # Enable logging
