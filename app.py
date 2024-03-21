@@ -20,9 +20,15 @@ import logging
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
-from dotenv import load_dotenv
-load_dotenv()
 import openai
+from dotenv import load_dotenv
+#Code of your application, which uses environment variables (e.g. from `os.environ` or
+# `os.getenv`) as if they came from the actual environment.
+openai.api_type = "open_ai"
+openai.base_url = ''
+openai.api_key = load_dotenv()
+
+
 # Enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -55,9 +61,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 
-openai.api_type = "open_ai"
-openai.base_url ="https://platform.openai.com/api-keys"
-openai.api_key = "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"
+
 messages = [{'role': 'system', 'content': 'Keep replies within 20 words'}]
 
 
