@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 # openai.base_url = ''
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
-##client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+#client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 
 # Enable logging
