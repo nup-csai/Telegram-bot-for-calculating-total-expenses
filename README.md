@@ -1,4 +1,3 @@
-cat << EOF > README.md
 # Telegram Chatbot with OpenAI Integration
 
 This is a Telegram chatbot integrated with OpenAI's language model for generating responses.
@@ -13,37 +12,32 @@ Before you run the code, make sure you have the following:
 
 ## Installation
 
-1. Clone this repository:
-
-   \`\`\`bash
+1. **Clone this repository:**
+   
+   ```bash
    git clone https://github.com/your_username/your_repository.git
-   \`\`\`
-
-2. Install the required dependencies:
-
-   \`\`\`bash
+   
+2. **Install the required dependencies:**
+   
+   ```bash
    pip install -r requirements.txt
-   \`\`\`
 
-3. Create a \`.env\` file in the root directory and add your Telegram API token and OpenAI API key:
+3. **Create a .env file in the root directory and add your Telegram API token and OpenAI API key:**
 
-   \`\`\`plaintext
+   ```plaintext
    TELEGRAM_API_TOKEN=your_telegram_api_token
    OPENAI_API_KEY=your_openai_api_key
-   \`\`\`
-
+   
 ## Usage
+Run the Python script 'app.py':
+   ```bash
+   python main.py
+```
 
-Run the Python script \`main.py\`:
+## Bot commands
 
-\`\`\`bash
-python main.py
-\`\`\`
-
-## Bot Commands
-
-- \`/start\`: Start the conversation.
-- \`/help\`: Display help information.
+- `/start\`: Start the conversation.
+- `/help\`: Display help information.
 
 ## How it Works
 
@@ -60,7 +54,3 @@ python main.py
 
 Contributions are welcome! If you want to contribute to this project, feel free to open a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-EOF
