@@ -20,7 +20,7 @@ class BotDB:
         self.conn.commit()
 
     def add_record(self, user_id, operation, value):
-        self.cursor.execute("INSERT INTO records (users_id, operation, value) VALUES (?, ?, ?)",
+        self.cursor.execute("INSERT INTO records (users_id, operarion, value) VALUES (?, ?, ?)",
                             (self.get_user_id(user_id), operation == "+", value))
         self.conn.commit()
 

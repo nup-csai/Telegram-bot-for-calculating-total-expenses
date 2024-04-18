@@ -5,8 +5,11 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 
 import openai
 from openai import OpenAI
+import re
 import os
 from dotenv import load_dotenv
+
+from db import BotDB
 # TODO: The 'openai.base_url' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(base_url='')'
 # openai.base_url = ''
 load_dotenv()
@@ -23,14 +26,22 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
+bot_db = BotDB('accountant.db')
 
 # Define a few command handlers. These usually take the two arguments update and
 # context.
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /start is issued."""
+    user_id = update.message.from_user.id
+    print(user_id)
     user = update.effective_user
-    await update.message.reply_html(
-        rf"Hi {user.mention_html()}!",
+    if not bot_db.user_exists(user_id):
+        bot_db.add_user(user_id)
+        await update.message.reply_html(rf"Hi {user.mention_html()}! You've been added to the database.",
+        reply_markup=ForceReply(selective=True),
+    )
+    else:
+        await update.message.reply_html(rf"Welcome back {user.mention_html()}!",
         reply_markup=ForceReply(selective=True),
     )
 
@@ -43,7 +54,6 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Echo the user message."""
     await update.message.reply_text(update.message.text)
-
 
 
 
@@ -73,6 +83,59 @@ async def bot_reply(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     await update.message.reply_text(llm_reply)
 
+async def add_record(update: Update, context) -> None:
+    operation = '-' if update.message.text.split()[0] in ('/spent', '/s') else '+'
+
+    value = re.sub(r'[\d,.]+', '', update.message.text).strip()
+
+    if value:
+        x = re.findall(r"\d+(?:.\d+)?", update.message.text)
+        if x:
+            value = float(x[0].replace(',', '.'))
+
+            bot_db.add_record(update.message.from_user.id, operation, value)
+
+            if operation == '-':
+                await update.message.reply_text("✅ Income record successfully added!")
+            else:
+                await update.message.reply_text("✅ Expense record successfully added!")
+        else:
+            await update.message.reply_text("Give the correct number of money")
+    else:
+        await update.message.reply_text("No amount of money provided!")
+
+async def history(update: Update, context) -> None:
+    within_als = {
+        "day": ('today', 'day', 'сегодня', 'день'),
+        "month": ('month', 'месяц'),
+        "year": ('year', 'год'),
+    }
+
+    cmd = re.sub(r'/h(?:istory)?', '', update.message.text).strip().lower()
+
+    within = 'day'
+    for k, als in within_als.items():
+        if cmd in als:
+            within = k
+            break
+
+    records = bot_db.get_records(update.message.from_user.id, within)
+
+    if records:
+        answer = f"History for the {within_als[within][-1]}\n\n"
+
+        for r in records:
+            answer += "<b>" + ("-- Expense" if not r[2] else "++ Income") + "</b>"
+            answer += f" - {r[3]}"
+            answer += f" <i>({r[4]})</i>\n"
+
+        await update.message.reply_text(answer, parse_mode='HTML')
+    else:
+        await update.message.reply_text("No records found!")
+
+
+CMD_VARIANTS = ('spent', 's', 'earned', 'e')
+CMD_HISTORY = ('history', 'h')
 
 def main() -> None:
     """Start the bot."""
@@ -85,6 +148,8 @@ def main() -> None:
 
     # on non command
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, bot_reply))
+    application.add_handler(CommandHandler(CMD_VARIANTS, add_record))
+    application.add_handler(CommandHandler(CMD_HISTORY, history))
 
     # Run the bot until the user presses Ctrl-C
     application.run_polling(allowed_updates=Update.ALL_TYPES)
