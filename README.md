@@ -33,11 +33,10 @@ Before you run the code, make sure you have the following:
    ```plaintext
    OPENAI_API_KEY=your_openai_api_key
 
-4. **In the .config file put your OpenAI API key:**
+4. **In the .config file put your Telegram API token:**
 
    ```plaintext
-   OPENAI_API_KEY=your_openai_api_key
-
+   TELEGRAM_API_TOKEN = your_telegram_api_token
    
 ## Usage
 Run the Python script 'app.py':
