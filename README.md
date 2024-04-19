@@ -1,12 +1,18 @@
 # Telegram Chatbot with OpenAI Integration
 
-This is a Telegram chatbot integrated with OpenAI's language model for generating responses.
+This Telegram bot is designed to assist users with managing their expenses and providing responses based on user input using OpenAI's GPT-4 model.
+
+## Features:
+- **User Registration**: Upon starting a conversation with the bot, users are automatically registered in the database.
+- **Expense and Income Tracking**: Users can add records of their expenses and incomes using simple commands.
+- **History Display**: Users can view their expense and income history for a specified time period.
+- **Help Command**: Users can access help information by using the `/help` command.
 
 ## Prerequisites
 
 Before you run the code, make sure you have the following:
 
-- Python 3 installed on your system.
+- Python 3.6 or higher installed on your system.
 - Telegram API token for your bot.
 - OpenAI API key.
 
@@ -31,26 +37,18 @@ Before you run the code, make sure you have the following:
 ## Usage
 Run the Python script 'app.py':
    ```bash
-   python main.py
+   python app.py
 ```
 
-## Bot commands
+## Bot commands:
+1. Start the bot by sending the `/start` command.
+2. Use the `/spent` or `/s` command followed by the amount to add an expense record.
+3. Use the `/earned` or `/e` command followed by the amount to add an income record.
+4. Use the `/history` or `/h` command to view your expense and income history.
+5. Use the `/help` command to access help information.
+6. Write a message to recieve an answer from OpenAi
 
-- `/start\`: Start the conversation.
-- `/help\`: Display help information.
-
-## How it Works
-
-1. The bot listens for user messages.
-2. When a message is received, it sends it to the OpenAI language model for generating a response.
-3. The response is then sent back to the user.
-
-## Customization
-
-- You can modify the behavior of the bot by adjusting the parameters passed to the OpenAI language model.
-- Customize the responses or add more features as per your requirements.
-
-## Contributions
-
-Contributions are welcome! If you want to contribute to this project, feel free to open a pull request.
+## Additional Notes:
+- Ensure that your bot token is correctly set in the `app.py` file.
+- The bot uses SQLite3 as the database backend. Ensure that you have the necessary permissions to create and write to the database file.
 
