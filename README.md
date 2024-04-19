@@ -36,7 +36,29 @@ Before you run the code, make sure you have the following:
 4. **In the .config file put your Telegram API token:**
 
    ```plaintext
-   TELEGRAM_API_TOKEN = your_telegram_api_token
+   TELEGRAM_API_TOKEN = your_telegram_api_token```
+# Telegram Bot Token Acquisition Guide
+
+This guide outlines the steps to obtain a Telegram Bot Token for creating and managing a bot on the Telegram platform.
+
+### Prerequisites
+- A Telegram account.
+- Access to the Telegram platform either through the web or the mobile app.
+
+### Steps to Obtain Telegram Bot Token:
+
+1. **Create a Telegram Bot**:
+   - Start a conversation with [@BotFather](https://t.me/BotFather) on Telegram.
+   - Type `/start` to initiate the conversation.
+   - Follow the on-screen instructions to create a new bot.
+   - You will need to provide a name for your bot and receive a unique username for it.
+
+2. **Obtain Bot Token**:
+   - After successfully creating the bot, [@BotFather](https://t.me/BotFather) will provide you with an API token.
+   - This token is your bot's access key and is essential for communicating with the Telegram Bot API.
+
+3. **Save Your Token**:
+   - Copy the provided API token. This you need to use in your .env file
    
 ## Usage
 Run the Python script 'app.py':
