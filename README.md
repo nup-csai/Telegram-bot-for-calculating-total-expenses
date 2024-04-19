@@ -21,7 +21,7 @@ Before you run the code, make sure you have the following:
 1. **Clone this repository:**
    
    ```bash
-   git clone https://github.com/your_username/your_repository.git
+   git clone git@github.com:nup-csai/Telegram-bot-for-calculating-total-expenses.git
    
 2. **Install the required dependencies:**
    
