@@ -28,11 +28,16 @@ Before you run the code, make sure you have the following:
    ```bash
    pip install -r requirements.txt
 
-3. **Create a .env file in the root directory and add your Telegram API token and OpenAI API key:**
+3. **Create a .env file in the root directory and add your OpenAI API key:**
 
    ```plaintext
-   TELEGRAM_API_TOKEN=your_telegram_api_token
    OPENAI_API_KEY=your_openai_api_key
+
+4. **In the .config file put your OpenAI API key:**
+
+   ```plaintext
+   OPENAI_API_KEY=your_openai_api_key
+
    
 ## Usage
 Run the Python script 'app.py':
