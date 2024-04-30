@@ -32,7 +32,7 @@ Before you run the code, make sure you have the following:
 
    ```plaintext
    OPENAI_API_KEY=your_openai_api_key
-   TELEGRAM_API_TOKEN = "your_telegram_api_token"```
+   TELEGRAM_API_TOKEN = "your_telegram_api_token"
 
 # Telegram Bot Token Acquisition Guide
 
