@@ -1,21 +1,17 @@
 import logging
-
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
-
 import openai
 from openai import OpenAI
 import re
 import os
 from dotenv import load_dotenv
-
 from db import BotDB
-# TODO: The 'openai.base_url' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(base_url='')'
-# openai.base_url = ''
+
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-
+token = os.getenv('BOT_TOKEN')
 
 # Enable logging
 logging.basicConfig(
@@ -140,7 +136,7 @@ CMD_HISTORY = ('history', 'h')
 def main() -> None:
     """Start the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("6806503070:AAG2v1CoC6bGNw9LU-N-jnhIKqHgXo-D24Q").build()
+    application = Application.builder().token(token).build()
 
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))
