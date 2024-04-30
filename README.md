@@ -28,15 +28,12 @@ Before you run the code, make sure you have the following:
    ```bash
    pip install -r requirements.txt
 
-3. **Create a .env file in the root directory and add your OpenAI API key:**
+3. **Create a .env file in the root directory and add your OpenAI API key and put your Telegram API token:**
 
    ```plaintext
    OPENAI_API_KEY=your_openai_api_key
+   TELEGRAM_API_TOKEN = "your_telegram_api_token"```
 
-4. **In the .config file put your Telegram API token:**
-
-   ```plaintext
-   TELEGRAM_API_TOKEN = your_telegram_api_token```
 # Telegram Bot Token Acquisition Guide
 
 This guide outlines the steps to obtain a Telegram Bot Token for creating and managing a bot on the Telegram platform.
